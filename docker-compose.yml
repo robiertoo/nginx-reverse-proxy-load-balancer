@@ -17,14 +17,21 @@ services:
     image: php:8.2-apache
     container_name: app-1
     volumes:
-      - ./app1:/var/www/html
+      - ./app:/var/www/html
     networks:
-    - proxy
-  
-  app2:
-    image: php:8.2-apache
-    container_name: app-2
-    volumes:
-      - ./app2:/var/www/html
+      - proxy
+    links:
+      - db
+
+  db:
+    image: mysql:5.7
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test
     networks:
       - proxy
