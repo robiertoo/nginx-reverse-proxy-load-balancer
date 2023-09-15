@@ -14,7 +14,7 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
 
   app1:
-    image: php:8.2-apache
+    build: .
     container_name: app-1
     volumes:
       - ./app:/var/www/html

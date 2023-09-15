@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Pessoa;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/pessoas', function () {
+    return Pessoa::get();
+});
+
+Route::post('/pessoas', function () {
+    $data = request()->toArray();
+
+    $data['uuid'] = Str::uuid()->__toString();
+
+    return Pessoa::create($data);
+});
+
+Route::get('/contagem-pessoas', function () {
+    return Pessoa::count();
 });
