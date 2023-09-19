@@ -23,6 +23,16 @@ services:
     links:
       - db
 
+  app2:
+    build: .
+    container_name: app-2
+    volumes:
+      - ./app:/var/www/html
+    networks:
+      - proxy
+    links:
+      - db
+
   db:
     image: mysql:5.7
     container_name: mysql

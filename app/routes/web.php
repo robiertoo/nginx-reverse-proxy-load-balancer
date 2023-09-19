@@ -19,15 +19,17 @@ Route::get('/', function () {
 });
 
 Route::get('/pessoas', function () {
-    return Pessoa::get();
+    return DB::select('SELECT * FROM pessoas');
 });
 
 Route::post('/pessoas', function () {
     $data = request()->toArray();
 
     $data['uuid'] = Str::uuid()->__toString();
+    $data['created_at'] = now();
+    $data['updated_at'] = now();
 
-    return Pessoa::create($data);
+    return DB::table('pessoas')->insert($data);
 });
 
 Route::get('/contagem-pessoas', function () {
